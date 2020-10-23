@@ -1,0 +1,21 @@
+h1 {
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.board-container {
+    display: grid;
+    margin: 80px auto;
+    grid-template-columns: 120px 120px 120px;
+    grid-template-rows: 120px 120px 120px;
+    border: 1px solid black;
+    width: max-content;
+}
+
+.board-container div {
+    border: 1px solid black;
+    text-align: center;
+    line-height: 120px;
+    font-size: 80px;
+  }
