@@ -16,6 +16,6 @@ h1 {
 .board-container div {
     border: 1px solid black;
     text-align: center;
-    line-height: 120px;
+    line-height: 120px; 
     font-size: 80px;
   }
