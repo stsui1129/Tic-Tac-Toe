@@ -21,12 +21,10 @@ const gameBoard = (() => {
         ];
 
         winningCombinations.forEach((item) => {
-            if (gameBoard.board[item[0]] !== ""
-            && gameBoard.board[item[0]] === gameBoard.board[item[1]]
-            && gameBoard.board[item[1]] === gameBoard.board[item[2]]) {
+            if (board[item[0]] !== "" && board[item[0]] === board[item[1]] && board[item[0]] === board[item[2]]) {
                 displayController.declareWinner();
             }
-            else if (gameBoard.board.indexOf("") == -1) {
+            else if (!board.includes("")) {
                 displayController.declareTie();
             }
         })
