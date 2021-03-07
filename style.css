@@ -1,5 +1,5 @@
 h1 {
-    font-size: 40px;
+    font-size: 70px;
     display: flex;
     justify-content: center;
 }
@@ -20,8 +20,14 @@ h1 {
     font-size: 80px;
 }
 
+.turn-status {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+}
+
 .game-status {
-    font-size: 35px;
+    font-size: 45px;
     display: flex;
     justify-content: center;
 }

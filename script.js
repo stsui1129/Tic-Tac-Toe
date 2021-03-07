@@ -24,8 +24,10 @@ const gameBoard = (() => {
             if (gameBoard.board[item[0]] !== ""
             && gameBoard.board[item[0]] === gameBoard.board[item[1]]
             && gameBoard.board[item[1]] === gameBoard.board[item[2]]) {
-                console.log ("win");
                 displayController.declareWinner();
+            }
+            else if (gameBoard.board.indexOf("") == -1) {
+                displayController.declareTie();
             }
         })
     }
@@ -37,6 +39,12 @@ const displayController = (() => {
     const playerOne = playerFactory('Player 1', 'X');
     const playerTwo = playerFactory('Player 2', 'O');
     let currentPlayer = playerOne;
+    const gameStatus = document.querySelector('.game-status');
+    const turnStatus = document.querySelector('.turn-status');
+    turnStatus.textContent = "Player 1 (X)'s turn";
+
+    const replay = document.querySelector('#replay-button');
+    replay.addEventListener('click', () => location.reload());
 
     const placeMarker = (e) => {
         const square = e.target;
@@ -44,8 +52,8 @@ const displayController = (() => {
         square.innerHTML = currentMarker;
         gameBoard.board[square.getAttribute('data-num')] = currentMarker;
         gameBoard.checkWin();
-
-        toggleTurn();  
+        toggleTurn();
+        turnStatus.textContent = `${currentPlayer.getName()} (${currentPlayer.getMarker()})'s turn`;
     }
 
     const squares = document.querySelectorAll('[data-num]');
@@ -58,18 +66,17 @@ const displayController = (() => {
     } 
 
     const declareWinner = () => {
+        turnStatus.remove();
+        gameStatus.textContent = `${currentPlayer.getName()} (${currentPlayer.getMarker()}) wins`;
         squares.forEach(square => {
             square.style.pointerEvents = 'none';
         })
-        gameStatus.innerText = `${currentPlayer.getName()} (${currentPlayer.getMarker()}) wins`;
-        if (gameBoard.board.indexOf("") == -1) {
-            gameStatus.innerText = "It's a tie";
-        }
     }
 
-    const gameStatus = document.querySelector('.game-status')
-    const replay = document.querySelector('#replay-button');
-    replay.addEventListener('click', () => location.reload());
+    const declareTie = () => {
+        turnStatus.remove();
+        gameStatus.textContent = "It's a tie";  
+    }
 
-    return {placeMarker, toggleTurn, declareWinner};
+    return {placeMarker, toggleTurn, declareWinner, declareTie};
 })();
