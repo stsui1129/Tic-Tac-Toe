@@ -1,17 +1,12 @@
 const playerFactory = (name, marker) => {
     const getName = () => name;
     const getMarker = () => marker;
+
     return {getName, getMarker};
 };
 
 const gameBoard = (() => {
     const board = Array(9).fill("");
-
-    const resetBoard = () => {
-        for (let i = 0; i < board.length; i++) {
-            board[i] = "";
-        }
-    }
 
     const checkWin = () => {
         const winningCombinations = [
@@ -34,8 +29,8 @@ const gameBoard = (() => {
             }
         })
     }
-
-    return {board, resetBoard, checkWin};
+    
+    return {board, checkWin};
 })();
 
 const displayController = (() => {
@@ -66,8 +61,15 @@ const displayController = (() => {
         squares.forEach(square => {
             square.style.pointerEvents = 'none';
         })
-        console.log (`${currentPlayer.getName()} wins`)
+        gameStatus.innerText = `${currentPlayer.getName()} (${currentPlayer.getMarker()}) wins`;
+        if (gameBoard.board.indexOf("") == -1) {
+            gameStatus.innerText = "It's a tie";
+        }
     }
+
+    const gameStatus = document.querySelector('.game-status')
+    const replay = document.querySelector('#replay-button');
+    replay.addEventListener('click', () => location.reload());
 
     return {placeMarker, toggleTurn, declareWinner};
 })();
