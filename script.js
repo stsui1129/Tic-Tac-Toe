@@ -23,14 +23,17 @@ const gameBoard = (() => {
         winningCombinations.forEach((item) => {
             if (board[item[0]] !== "" && board[item[0]] === board[item[1]] && board[item[0]] === board[item[2]]) {
                 displayController.declareWinner();
-            }
-            else if (!board.includes("")) {
-                displayController.declareTie();
-            }
-        })
+            }   
+        })      
+    }
+
+    const checkTie = () => {
+        if (!board.includes("")) {
+            displayController.declareTie();
+        }
     }
     
-    return {board, checkWin};
+    return {board, checkWin, checkTie};
 })();
 
 const displayController = (() => {
@@ -50,6 +53,7 @@ const displayController = (() => {
         square.innerHTML = currentMarker;
         gameBoard.board[square.getAttribute('data-num')] = currentMarker;
         gameBoard.checkWin();
+        gameBoard.checkTie();
         toggleTurn();
         turnStatus.textContent = `${currentPlayer.getName()} (${currentPlayer.getMarker()})'s turn`;
     }
